@@ -28,7 +28,7 @@ This writeup addresses all of the rubric points for the project.  All of the cod
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for camera calibration is located in `main.py` on lines 8-42.  The function `calibrate_camera()` returns the camera matrix `mtx` and distortion coefficients `dist`.  The function relies on the folder `camera_cal` containing images of a chessboard--with 9x6 interior points--at various angles.
+The code for camera calibration is located in `main.py` on lines 8-42.  The function `calibrate_camera()` returns the camera matrix `mtx` and distortion coefficients `dist`.  The function looks for a folder `camera_cal` containing images of a chessboard with 9x6 interior points.
 
 The function relies on `cv2.calibrateCamera` to calculate the camera matrix and distortion coefficients.  This function compares known "object points" with corresponding "image points" that have been found in the image.  In this case, the points refer to the interior points on an 8x6 chessboard.
 
@@ -36,11 +36,11 @@ The first step of the function is to define the object points which represent th
 
 Once `mtx` and `dist` are calculated, `cv2.undistort` can be used in the pipeline to remove the distortions from the image
 
-<img src="./camera_cal/calibration3.jpg" width="200"><img src="./examples/calibration3_1_undistort.jpg" width="200"><img src="./examples/calibration3_diff.jpg" width="200">
+<img src="./camera_cal/calibration3.jpg" width="200"> <img src="./examples/calibration3_1_undistort.jpg" width="200"> <img src="./examples/calibration3_diff.jpg" width="200">
 
 **Figure 1**: from left to right, calibration image, undistorted image, absolute difference between images
 
-Note: In order calculate the camera matrix and distortion coefficients, `main.py` must be called with the option `--calibrate_camera true`.  Otherwise, a pickle file is loaded containing pre-calculated values.
+Note: In order to calculate the camera matrix and distortion coefficients, `main.py` must be called with the option `--calibrate_camera true`.  Otherwise, a pickle file is loaded containing pre-calculated values.
 
 ---
 
@@ -54,7 +54,7 @@ The image pipeline corrects the image distortion with the following line:
 341:  undist = cv2.undistort(image, mtx, dist, None, mtx)
 ```
 
-`image` is the input to the pipeline (converted to RGB). `mtx` and `dist` are defined at the `__main__` scope in the module either from a loaded pickle file or the `calibrate_camera` function.
+`image` is the input to the pipeline (converted to RGB). `mtx` and `dist` are defined at the `__main__` scope in the module; either from a loaded pickle file or the `calibrate_camera` function.
 
 <img src="./output_images/test2_1_undistort.jpg" width="600">
 
@@ -110,8 +110,7 @@ The function (lines 189-303) first calculates a histogram along the columns on t
 
 After all of the lane pixels are detected, a second order polynomial is fit to each lane.  This allows the area between the lanes to be drawn onto an image for visualization.
 
-<img src="./output_images/test2_4b_lane_lines.jpg" width="300">
-<img src="./output_images/test2_4a_lane_area.jpg" width="300">
+<img src="./output_images/test2_4b_lane_lines.jpg" width="300"> <img src="./output_images/test2_4a_lane_area.jpg" width="300">
 
 **Figure 5**: Line lines (left), lane area (right)
 
@@ -164,8 +163,8 @@ The results from `sliding_windows` and the undistorted image are passed to the f
 
 The most challenging aspect of this image was correctly identifying the yellow lane on light pavement, as in the figure below.  The function `yellow_threshold` includes finely-tuned thresholds because the line and pavement are very similar in all of the channels.  The only way to eliminate the false positives was to have very tight ranges.  Unfortunately, this reduces the number of yellow line pixels in most frames.  To compensate, the polyfit of the last 10 frames is averaged for the video pipeline.
 
-<img src="./output_images/test1_1_undistort.jpg" width="300"><img src="./output_images/test1_2_warped_color.jpg" width="300">
-<img src="./output_images/test1_4a_lane_area.jpg" width="300"><img src="./output_images/test1_4b_lane_lines.jpg" width="300">
+<img src="./output_images/test1_1_undistort.jpg" width="300"> <img src="./output_images/test1_2_warped_color.jpg" width="300">
+<img src="./output_images/test1_4b_lane_lines.jpg" width="300"> <img src="./output_images/test1_4a_lane_area.jpg" width="300">
 <img src="./output_images/test1_5_final.jpg" width="300">
 
 **Figure 7**: Pipeline stages for problem image
