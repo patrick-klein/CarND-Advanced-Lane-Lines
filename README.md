@@ -36,9 +36,7 @@ The first step of the function is to define the object points which represent th
 
 Once `mtx` and `dist` are calculated, `cv2.undistort` can be used in the pipeline to remove the distortions from the image
 
-<img src="./camera_cal/calibration3.jpg" width="200">
-<img src="./examples/calibration3_1_undistort.jpg" width="200">
-<img src="./examples/calibration3_diff.jpg" width="200">
+<img src="./camera_cal/calibration3.jpg" width="200"><img src="./examples/calibration3_1_undistort.jpg" width="200"><img src="./examples/calibration3_diff.jpg" width="200">
 
 **Figure 1**: from left to right, calibration image, undistorted image, absolute difference between images
 
@@ -166,10 +164,8 @@ The results from `sliding_windows` and the undistorted image are passed to the f
 
 The most challenging aspect of this image was correctly identifying the yellow lane on light pavement, as in the figure below.  The function `yellow_threshold` includes finely-tuned thresholds because the line and pavement are very similar in all of the channels.  The only way to eliminate the false positives was to have very tight ranges.  Unfortunately, this reduces the number of yellow line pixels in most frames.  To compensate, the polyfit of the last 10 frames is averaged for the video pipeline.
 
-<img src="./output_images/test1_1_undistort.jpg" width="300">
-<img src="./output_images/test1_2_warped_color.jpg" width="300">
-<img src="./output_images/test1_4a_lane_area.jpg" width="300">
-<img src="./output_images/test1_4b_lane_lines.jpg" width="300">
+<img src="./output_images/test1_1_undistort.jpg" width="300"><img src="./output_images/test1_2_warped_color.jpg" width="300">
+<img src="./output_images/test1_4a_lane_area.jpg" width="300"><img src="./output_images/test1_4b_lane_lines.jpg" width="300">
 <img src="./output_images/test1_5_final.jpg" width="300">
 
 **Figure 7**: Pipeline stages for problem image
